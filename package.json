@@ -1,0 +1,23 @@
+{
+  "name": "kindergarten",
+  "version": "1.0.0",
+  "description": "Database KMA project.",
+  "main": "index.js",
+  "dependencies": {
+    "node": "^11.11.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spiderlisa/kindergarten.git"
+  },
+  "author": "Lisa Zhylina, Ann Manzhura",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spiderlisa/kindergarten/issues"
+  },
+  "homepage": "https://github.com/spiderlisa/kindergarten#readme"
+}
