@@ -60,8 +60,13 @@ exports.getObjectsFromDb = function (params, callback) {
 
 exports.connectToDB = function () {
     var config = {
-        userName: 'AnneManzhura',
-        password: '28Kissme*',
+        authentication: {
+            type: "default",
+            options: {
+                userName: 'AnneManzhura',
+                password: '28Kissme*',
+            }
+        },
         server: 'annemanzhuraserver.database.windows.net',
         options:
             {

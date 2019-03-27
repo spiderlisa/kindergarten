@@ -8,15 +8,14 @@
 
 <% include templates/header.ejs %>
 
-<div id="main-area" class="container">
-    <div class="row">
-        <div class="col-3">
+<div id="main-area" class="container-fluid">
+    <div class="row mb-5">
+        <div class="col-md-3 d-none d-lg-block">
             <% include templates/user-side-card.ejs %>
             <% include templates/children-side-card.ejs %>
         </div>
-        <div class="col-9">
+        <div class="col">
             <div class="h3 mb-4 page-title">Рахунки</div>
-
             <div class="mb-3">
                 <div class="btn-group">
                     <button type="button" class="btn btn-light dropdown-toggle"
@@ -36,7 +35,6 @@
                     </button>
                 </div>
             </div>
-
             <div id="all-bills">
                 <% bills.forEach( function (info) { %>
                     <% include templates/bill.ejs %>

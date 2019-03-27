@@ -1,10 +1,10 @@
 <div class="card mb-2">
-    <h1 class="h4 card-header font-weight-normal">
-        Група "<%= main_group %>"
+    <h1 class="card-header">
+        <span class="h5 mt-1 font-weight-normal float-left">Група "<%= main_group %>"</span>
         <% if (presence) { %>
-        <button type="button" class="btn btn-sm btn-light right-side"
+        <button type="button" class="btn btn-sm btn-light float-right"
                 data-toggle="modal" data-target="#exampleModal"
-                data-email="All" data-name="all-users">
+                data-email="All" data-name="all-users" id="choose-all-btn">
             Вибрати усіх
         </button>
         <% } %>
@@ -16,7 +16,7 @@
             <li class="list-group-item">
                 <a href="#"> <%= child.child_first_name %> <%= child.child_last_name %></a>
                 <% if (presence) { %>
-                <input type="checkbox"  class="right-side">
+                <input type="checkbox" class="right-side" name="present">
                 <% } %>
             </li>
         <% }) } %>
