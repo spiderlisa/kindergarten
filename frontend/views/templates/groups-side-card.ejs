@@ -3,7 +3,8 @@
     <% groups.forEach(function (group) { %>
     <div class="card-body">
         <div class="card-title h5 mb-2">
-            <a href="#" class="hidden-ref">Група "<%= group.name %>"</a>
+            <a href="http://localhost:5050/t/<%= user.teacher_id %>/g/<%= group.id %>"
+               class="hidden-ref">Група "<%= group.name %>"</a>
         </div>
         <p class="card-subtitle text-muted small-text"><%= group.number %> учні(в)</p>
     </div>

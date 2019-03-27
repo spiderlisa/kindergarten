@@ -1,1 +1,16 @@
+<% include templates/header.ejs %>
 
+<div id="main-area" class="container">
+    <div class="row">
+        <div class="col-3">
+            <% include templates/user-side-card.ejs %>
+            <% include templates/groups-side-card.ejs %>
+        </div>
+        <div class="col-9">
+            <div class="h3 mb-4 page-title">Відвідування</div>
+            <% include templates/group-list.ejs %>
+        </div>
+    </div>
+</div>
+
+<% include templates/footer.ejs %>
