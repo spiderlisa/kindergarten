@@ -1,0 +1,27 @@
+<div class="card">
+    <h1 class="h4 card-header font-weight-normal">
+        Група "<%= group %>"
+        <% if (presence) { %>
+        <button type="button" class="btn btn-sm btn-light right-side"
+                data-toggle="modal" data-target="#exampleModal"
+                data-email="All" data-name="all-users">
+            Вибрати усіх
+        </button>
+        <% } %>
+    </h1>
+    <ul class="list-group list-group-flush" id="group-list">
+        <% if (children.length==0) { console.log("Zero"); %>
+        <li class="list-group-item">В цій групі немає жодної дитини</li>
+        <% } else { Array.from(children).forEach(function (child) { %>
+            <li class="list-group-item">
+                <a href="#"> <%= child.name %> </a>
+                <% if (presence) { %>
+                <input type="checkbox"  class="right-side">
+                <% } %>
+            </li>
+        <% }) } %>
+    </ul>
+    <% if (presence) { %>
+    <button type="button" class="btn btn-primary" id="presence-submit-btn"> Відмітити </button>
+    <% } %>
+</div>

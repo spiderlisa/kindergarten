@@ -4,11 +4,15 @@
   "description": "Database KMA project.",
   "main": "index.js",
   "dependencies": {
-    "node": "^11.11.0"
+    "async": "^2.6.2",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "node": "^11.11.0",
+    "tedious": "^5.0.3"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",

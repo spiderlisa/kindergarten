@@ -1,0 +1,22 @@
+<div class="card mb-2">
+    <div class="card-body">
+            <div class="mb-2">
+                <span class="h5 card-title"><%= info.child_name %>, <%= info.period %></span>
+
+                <% if (type == "parent") { %>
+                    <button class="btn btn-primary float-right" >
+                        <img src="/frontend/views/assets/icons8-print-30.png" width="15" height="15">
+                    </button>
+                <% } else if (type == "admin") { %>
+                    <button class="btn btn-primary float-right">
+                        <img src="/frontend/views/assets/icons8-facebook-like-filled-50.png" width="15" height="15">
+                    </button>
+                <% } %>
+            </div>
+            <h6 class="card-subtitle text-muted mb-2"><%= info.sum%> грн</h6>
+            <div class="card-text">
+                <div>Статус: <%= info.status %></div>
+                <div>Дата кінця терміну сплати: <%= info.end_date %></div>
+            </div>
+    </div>
+</div>

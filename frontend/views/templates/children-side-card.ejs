@@ -1,0 +1,15 @@
+<div class="card card-small bg-light mb-2 side-card-stack">
+    <div class="card-header">Діти</div>
+    <% children.forEach(function (child) { %>
+        <div class="card-body">
+            <div class="card-title h5 mb-2">
+                <a href="#" class="hidden-ref"><%= child.child_first_name %> <%= child.child_last_name %></a>
+            </div>
+            <p class="card-subtitle mb-2 text-muted small-text"><%= child.child_dob %></p>
+            <div>
+                <a href="#" class="card-link">Група "<%= child.group_id %>"</a>
+            </div>
+        </div>
+        <hr style="margin: 0 0;">
+    <% }); %>
+</div>

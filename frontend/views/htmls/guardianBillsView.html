@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kindergarten</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+<nav id="header" class="navbar fixed-top">
+    <button type="button" class="btn btn-default right-side">Вийти</button>
+</nav>
+
+<div id="main-area" class="container">
+    <div class="row">
+    <div class="col-3">
+        <div class="card card-small bg-light">
+            <div class="card-header">Профіль</div>
+            <div class="card-body">
+                <div class="card-title h5 mb-2">
+                    <a href="#" class="hidden-ref">Тетяна Іванова</a>
+                </div>
+                <p class="card-subtitle mb-3 text-muted small-text">30.05.1985</p>
+                <p class="card-text">
+                    <img src="https://img.icons8.com/metro/26/000000/phone.png" class="icon">
+                    <span>+38 (066) 111-22-33</span>
+                </p>
+            </div>
+        </div>
+        <button class="btn btn-primary side-btn" id="bills-btn">Мої рахунки</button>
+
+        <div class="card card-small bg-light mb-2 side-card-stack">
+            <div class="card-header">Діти</div>
+            <div class="card-body">
+                <div class="card-title h5 mb-2">
+                    <a href="#" class="hidden-ref">Іван Іванов</a>
+                </div>
+                <p class="card-subtitle mb-3 text-muted small-text">12.01.2014</p>
+                <div>
+                    <a href="#" class="card-link hidden-ref">Група "Сонечко"</a>
+                </div>
+            </div>
+            <hr style="margin: 0px 0px;">
+            <div class="card-body">
+                <div class="card-title h5 mb-2">
+                    <a href="#" class="hidden-ref">Марія Іванова</a>
+                </div>
+                <p class="card-subtitle mb-3 text-muted small-text">21.10.2016</p>
+                <div>
+                    <a href="#" class="card-link hidden-ref">Група "Берізка"</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-9">
+        <div class="h3 mb-4 page-title">Рахунки</div>
+
+        <div class="mb-3">
+            <div class="btn-group">
+                <button type="button" class="btn btn-light dropdown-toggle"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Сортування
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Нові спочатку</a>
+                    <a class="dropdown-item" href="#">Несплачені спочатку</a>
+                    <a class="dropdown-item" href="#">A-Я</a>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-light dropdown-toggle"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Фільтри
+                </button>
+            </div>
+        </div>
+
+        <div id="all-bills">
+            <div class="card mb-2">
+                <div class="card-body">
+                    <h5 class="card-title">Іван Іванов, лютий 2019</h5>
+                    <h6 class="card-subtitle text-muted">578 грн</h6>
+                    <p class="card-text">
+                        <div>Статус: не сплачено</div>
+                        <div>Дата кінця терміну сплати: 31 березня 2019</div>
+                    </p>
+                    <button class="btn btn-primary">Друкувати квитанцію</button>
+                </div>
+            </div>
+
+            <div class="card mb-2">
+                <div class="card-body">
+                    <h5 class="card-title">Марія Іванова, лютий 2019</h5>
+                    <h6 class="card-subtitle text-muted">690 грн</h6>
+                    <p class="card-text">
+                    <div>Статус: не сплачено</div>
+                    <div>Дата кінця терміну сплати: 31 березня 2019</div>
+                    </p>
+                    <button class="btn btn-primary">Друкувати квитанцію</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

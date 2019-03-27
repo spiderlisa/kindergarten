@@ -1,0 +1,41 @@
+<div class="card card-small bg-light">
+    <div class="card-header">Профіль</div>
+    <div class="card-body">
+        <div class="card-title h5 mb-3">
+            <% if (type == "parent") { %>
+                <a href="#" class="hidden-ref"><%= user.guardian_first_name %> <%= user.guardian_last_name %></a>
+            <% } else { %>
+                <a href="#" class="hidden-ref"><%= user.teacher_first_name %> <%= user.teacher_last_name %></a>
+            <% } %>
+        </div>
+        <p class="card-text mb-1">
+            <img src="https://img.icons8.com/metro/26/000000/phone.png" class="icon">
+            <span><% if (type == "parent") { %> <%= user.guardian_phone_n %> <%} else { %> <%= user.teacher_phone_n %> <%} %> </span>
+        </p>
+        <p class="card-text mb-1">
+            <img src="https://img.icons8.com/ios/50/000000/secured-letter-filled.png" class="icon">
+            <span><% if (type == "parent") { %> <%= user.guardian_email %> <%} else { %> <%= user.teacher_email %> <%} %> </span>
+        </p>
+        <p class="card-text mb-1">
+            <img src="https://img.icons8.com/ios/50/000000/home-filled.png" class="icon">
+            <span><% if (type == "parent") { %> <%= user.guardian_address %> <%} else { %> <%= user.teacher_address %> <%} %> </span>
+        </p>
+        <% if (type == "parent") { %>
+            <p class="card-text mb-1">
+                <img src="https://img.icons8.com/ios/50/000000/new-job-filled.png" class="icon">
+                <span><%= user.guardian_work %></span>
+            </p>
+        <% if (user.guardian_discount != 0) { %>
+            <p class="card-text mt-3 font-weight-bold">
+                Моя знижка - <%= user.guardian_discount %>%
+            </p>
+        <% } %>
+        <% } %>
+    </div>
+</div>
+<% if (type == "parent") { %>
+    <a href="http://localhost:5050/p/<%= user.guardian_id %>" class="btn btn-primary side-btn" id="bills-btn">Мої рахунки</a>
+<% } else if (type == "teacher") { %>
+    <a href="#" class="btn btn-primary side-btn" id="presence-btn">Відвідування</a>
+    <a href="#" class="btn btn-primary side-btn" id="reviews-btn">Відгуки</a>
+<% } %>
