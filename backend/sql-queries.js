@@ -14,3 +14,5 @@ exports.childrenByGroupId = "SELECT child_first_name, child_last_name " +
                             "FROM child " +
                             "WHERE group_id=@groupId";
 
+
+//hello
