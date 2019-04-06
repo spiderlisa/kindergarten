@@ -1,13 +1,20 @@
 var express = require('express');
+
+var api = require('./api');
+var session = require('express-session');
+
 var path = require('path');
 var bodyParser = require('body-parser');
 var db_connection = require('./dbhelper');
+
 
 function configureEndpoints(app) {
     const routes = require('./routes/routes');
     const parent_routes = require('./routes/parent-routes');
     const teacher_routes = require('./routes/teacher-routes');
     const admin_routes = require('./routes/admin-routes');
+
+    app.post('/auth', api.authenticate);
 
     app.use('/', routes);
     app.use('/p', parent_routes);
@@ -17,11 +24,20 @@ function configureEndpoints(app) {
     app.use(express.static(path.join(__dirname, '..')));
 }
 
+
 function startServer(port) {
     var app = express();
 
     app.set('views', path.join(__dirname, '../frontend/views'));
     app.set('view engine', 'ejs');
+
+    app.use(session({
+        secret: 'kissme',
+        resave: true,
+        saveUninitialized: true,
+        cookie: { maxAge: 60000 }
+    }));
+
 
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());

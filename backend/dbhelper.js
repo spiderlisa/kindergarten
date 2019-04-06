@@ -71,6 +71,7 @@ exports.getObjectsFromDb = function (params, callback) {
     return result;
 };
 
+
 exports.connectToDB = function () {
     var config = {
         authentication: {

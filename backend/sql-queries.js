@@ -17,3 +17,10 @@ exports.childrenByGroupId = "SELECT child_first_name, child_last_name " +
 exports.guardians = "SELECT guardian_id, guardian_last_name, guardian_first_name FROM guardian";
 
 exports.groups = "SELECT group_id, group_name FROM [group]";
+
+exports.teacherByEmail = "SELECT teacher_id, teacher_hashpassword, teacher_salt " +
+    "FROM teacher " +
+    "WHERE teacher_email=@teacherEmail";
+
+exports.guardianByEmail = "SELECT guardian_id, guardian_hashpassword, guardian_salt " +
+    "FROM guardian " +"WHERE guardian_email=@guardianEmail";
