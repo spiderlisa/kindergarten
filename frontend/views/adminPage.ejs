@@ -1,0 +1,20 @@
+<% include templates/header.ejs %>
+
+<div id="main-area" class="container-fluid">
+    <div class="row mb-5">
+        <div class="col-md-3 d-none d-lg-block">
+            <% include templates/admin-side.ejs %>
+        </div>
+        <div class="col">
+            <% if (reg_type == "child") { %>
+                <% include templates/register-child.ejs %>
+            <% } else if (reg_type == "parent") { %>
+                <% include templates/register-parent.ejs %>
+            <% } else if (reg_type == "teacher") { %>
+                <% include templates/register-teacher.ejs %>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<% include templates/footer.ejs %>

@@ -41,6 +41,13 @@ exports.fillParentBills = function (req, res) {
             });
         }
     });
+
+    /*
+    var sql1 = "SELECT guardian_id, guardian_email FROM guardian WHERE guardian_email=@userEmail";
+    db_helper.getObjectsFromDb([sql1, "olena-vkl@ukr.net"], function (err, res) {
+        console.log(res);
+    });
+    */
 };
 
 exports.fillTeacherPresence = function (req, res) {
@@ -73,6 +80,42 @@ exports.fillTeacherPresence = function (req, res) {
                         presence: true,
                     });
                 }
+            });
+        }
+    });
+};
+
+exports.renderRegChildPage = function (req, res) {
+    db_helper.getObjectsFromDb([queries.guardians], function (err, guardians) {
+        if(!err) {
+            db_helper.getObjectsFromDb([queries.groups], function (err, groups) {
+                if(!err) {
+                    res.render('adminPage', {
+                        pagetitle: "Реєстрація",
+                        parents: guardians,
+                        groups: groups,
+                        reg_type: "child"
+                    });
+                }
+            });
+        }
+    });
+};
+
+exports.renderRegParentPage = function (req, res) {
+    res.render('adminPage', {
+        pagetitle: "Реєстрація",
+        reg_type: "parent"
+    })
+};
+
+exports.renderRegTeacherPage = function (req, res) {
+    db_helper.getObjectsFromDb([queries.groups], function (err, groups) {
+        if(!err) {
+            res.render('adminPage', {
+                pagetitle: "Реєстрація",
+                groups: groups,
+                reg_type: "teacher"
             });
         }
     });

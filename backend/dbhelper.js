@@ -24,7 +24,20 @@ exports.getObjectsFromDb = function (params, callback) {
         var paramNames = parameterNames(params[0]);
         paramNames.forEach(function (name, i) {
             console.log(name + " - " + params[i + 1]);
-            request.addParameter(name, TYPES.Int, params[i + 1]);
+            if ((typeof name) == "string" && /[\u0400-\u04FF]/.test(name)) {
+                request.addParameter(name, TYPES.NChar, params[i + 1]);
+            } else if ((typeof name) == "string") {
+                request.addParameter(name, TYPES.VarChar, params[i + 1]);
+            } else if ((typeof name) == "num" && name.includes(".")) {
+                request.addParameter(name, TYPES.Real, params[i + 1]);
+            } else if ((typeof name) == "num") {
+                request.addParameter(name, TYPES.Int, params[i + 1]);
+            } else if ((typeof name) == "bool") {
+                request.addParameter(name, TYPES.Bit, params[i + 1]);
+            } else {
+                console.error("DB helper failed to get values from DB because actions " +
+                    "for this parameter type are not predefined.");
+            }
         });
     }
 
@@ -83,11 +96,12 @@ exports.connectToDB = function () {
                 console.log(err);
             else {
                 console.log("Connection established.");
-                //queryDatabase();
+
             }
         }
     );
 };
+
 
 function convertDate (d) {
     var parts = d.split(" ");

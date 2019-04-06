@@ -1,0 +1,18 @@
+{
+  "kindergarten": {
+    "name": "Первоцвіт",
+    "number": "61",
+    "address": {
+      "city": "Київ",
+      "street": "Володимирська",
+      "house": "76",
+      "code": "01033",
+      "district": "Шевченківський"
+    },
+    "phone": "+380442873392",
+    "admin": {
+      "login": "pervotsvit_ua@gmail.com",
+      "password": "3NHPqzjIAq"
+    }
+  }
+}

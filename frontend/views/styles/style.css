@@ -52,14 +52,6 @@ a {
     border-color: #3d8feb;
 }
 
-.btn-default {
-    color: #fff;
-}
-
-.btn-default:focus, .btn-default:active, .btn-default:hover {
-    color: #9F7651;
-}
-
 #header {
     height: 70px;
     padding: 10px 40px;
@@ -140,6 +132,12 @@ a {
 }
 .form-signin .form-control:focus {
     z-index: 2;
+}
+.form-signin .form-row {
+    padding-left: 15px;
+}
+.form-signin .form-row .form-check {
+    padding-right: 10px;
 }
 .form-signin input[type="email"] {
     margin-bottom: -1px;
