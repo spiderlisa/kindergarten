@@ -181,6 +181,10 @@ exports.fillTeacherPresence = function (req, res) {
 
 };
 
+exports.fillTeacherReviews = function (req, res) {
+
+};
+
 exports.renderRegChildPage = function (req, res) {
     db_helper.getObjectsFromDb([queries.guardians], function (err, guardians) {
         if(!err) {
