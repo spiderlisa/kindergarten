@@ -97,11 +97,12 @@ exports.connectToDB = function () {
                 console.log(err);
             else {
                 console.log("Connection established.");
-                //queryDatabase();
+
             }
         }
     );
 };
+
 
 function convertDate (d) {
     var parts = d.split(" ");

@@ -79,9 +79,8 @@ exports.authenticate = function(request, response) {
 
             }
             else response.redirect('/');
-        }
-        );
-    }
+        });
+    } 
     else {
         response.redirect('/');
         response.end();
@@ -182,6 +181,41 @@ exports.fillTeacherPresence = function (req, res) {
 
 };
 
+exports.renderRegChildPage = function (req, res) {
+    db_helper.getObjectsFromDb([queries.guardians], function (err, guardians) {
+        if(!err) {
+            db_helper.getObjectsFromDb([queries.groups], function (err, groups) {
+                if(!err) {
+                    res.render('adminPage', {
+                        pagetitle: "Реєстрація",
+                        parents: guardians,
+                        groups: groups,
+                        reg_type: "child"
+                    });
+                }
+            });
+        }
+    });
+};
+
+exports.renderRegParentPage = function (req, res) {
+    res.render('adminPage', {
+        pagetitle: "Реєстрація",
+        reg_type: "parent"
+    })
+};
+
+exports.renderRegTeacherPage = function (req, res) {
+    db_helper.getObjectsFromDb([queries.groups], function (err, groups) {
+        if(!err) {
+            res.render('adminPage', {
+                pagetitle: "Реєстрація",
+                groups: groups,
+                reg_type: "teacher"
+            });
+        }
+    });
+};
 
 function normaliseForDB(val,norm)
 {

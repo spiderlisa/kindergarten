@@ -1,0 +1,56 @@
+<form class="form-register">
+    <div class="h3 mb-4 page-title">Реєстрація вихователя</div>
+    <div class="form-group">
+        <label>ПІБ</label>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="text" class="form-control" placeholder="Прізвище" name="last_name" required>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" placeholder="Ім'я" name="first_name" required>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" placeholder="По батькові" name="father_name">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputDob">Дата нарождення</label>
+        <input type="text" class="form-control" id="inputDob" placeholder="05.04.2000" name="dob" required>
+    </div>
+    <div class="form-group" id="email-section">
+        <label for="inputEmail">Email</label>
+        <input type="email" class="form-control" placeholder="name@mail.com" name="email" required>
+    </div>
+    <div class="form-group" id="phone-section">
+        <label for="inputPhone">Номер телефону</label>
+        <input type="text" class="form-control" placeholder="+380 (66) 111-22-33"  name="phone" required>
+    </div>
+    <div class="form-group">
+        <label>Місце проживання</label>
+        <div class="form-row">
+            <div class="col-3">
+                <input type="text" class="form-control" placeholder="Місто" name="address_city"required>
+            </div>
+            <div class="col-7">
+                <input type="text" class="form-control" placeholder="Вулиця, дім" name="address_street" required>
+            </div>
+            <div class="col-2">
+                <input type="text" class="form-control" placeholder="Квартира" name="address_flat">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Групи</label>
+        <% groups.forEach(function (group) { %>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="group">
+                <label class="form-check-label">
+                    Група "<%= group.group_name %>"
+                </label>
+            </div>
+        <% }); %>
+    </div>
+
+    <button class="btn btn-primary btn-block mt-4" type="submit">Зареєструвати</button>
+</form>

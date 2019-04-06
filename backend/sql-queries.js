@@ -14,6 +14,9 @@ exports.childrenByGroupId = "SELECT child_first_name, child_last_name " +
                             "FROM child " +
                             "WHERE group_id=@groupId";
 
+exports.guardians = "SELECT guardian_id, guardian_last_name, guardian_first_name FROM guardian";
+
+exports.groups = "SELECT group_id, group_name FROM [group]";
 
 exports.teacherByEmail = "SELECT teacher_id, teacher_hashpassword, teacher_salt " +
     "FROM teacher " +
