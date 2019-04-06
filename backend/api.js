@@ -200,10 +200,12 @@ exports.fillTeacherReviews = function (req, res) {
 };
 
 exports.renderRegChildPage = function (req, res) {
+
+
     db_helper.getObjectsFromDb([queries.guardians], function (err, guardians) {
         if(!err) {
             db_helper.getObjectsFromDb([queries.groups], function (err, groups) {
-                if(!err) {
+                if(!err && req.session.loggedin === true && req.session.username === json.kindergarten.admin.login) {
                     res.render('adminPage', {
                         pagetitle: "Реєстрація",
                         parents: guardians,
