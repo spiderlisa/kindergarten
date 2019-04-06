@@ -1,13 +1,22 @@
 var db_helper = require('./dbhelper');
 var queries = require('./sql-queries');
-
+var json = require('./data/kindergarten-data.json');
 var apiPassword = require('./api_password');
 
 exports.getSignIn = function(req, res) {
     res.render('signIn');
 };
 
+exports.logout = function(request, response) {
+    request.session.loggedin = false;
+    response.redirect('/');
+    response.end();
+};
+
 exports.authenticate = function(request, response) {
+
+    console.log(json.kindergarten.admin.password);
+    console.log(json.kindergarten.admin.login);
 
     var email = request.body.email;
     var password = request.body.password;
@@ -20,67 +29,72 @@ exports.authenticate = function(request, response) {
 
     if (email && password) {
 
-        var sqlG = queries.guardianByEmail;
-        var sqlT = queries.teacherByEmail;
+        if (email === json.kindergarten.admin.login && password === json.kindergarten.admin.password) {
 
-        db_helper.getObjectsFromDb([sqlG, email], function (err, parent_info) {
-            if (!err) {
-                if(parent_info[0]===undefined)  //if there is no such email in parents table
-                {
-                    db_helper.getObjectsFromDb([sqlT, email], function (err, teacher_info){
-                        if (!err)
-                        {
-                            if(teacher_info[0]===undefined) response.redirect('/');  // if there is also no such email in teachers table
-                            else
-                            {
-                                hash = teacher_info[0].teacher_hashpassword;
-                                salt=teacher_info[0].teacher_salt;
-                                REGISTERED = (hash ===  apiPassword.hashSaltCombinedWithPassword(password, salt).hash );
-                                if(REGISTERED)
-                                {
-                                    status='t';
-                                    id=teacher_info[0].teacher_id;
-                                    console.log(REGISTERED );
-                                    request.session.loggedin = true;
-                                    request.session.username = email;
-                                    var url = '/' + status + '/' + id + '';
-                                    response.redirect(url);
-                                    response.end();
-                                }
-                                else response.redirect('/');
+            console.log("HELLOO");
+            request.session.loggedin = true;
+            request.session.username = email;
 
-                            }
-                        }
-                        else response.redirect('/');
+            response.redirect('/a/register-child');
 
-                    });
-                }
-                else
-                {
-                    hash = parent_info[0].guardian_hashpassword;
-                    salt=parent_info[0].guardian_salt;
-                    REGISTERED = (hash ===  apiPassword.hashSaltCombinedWithPassword(password, salt).hash );
-                    if(REGISTERED)
+            response.end();
+        } else {
+
+            console.log("KOOOOOO");
+            var sqlG = queries.guardianByEmail;
+            var sqlT = queries.teacherByEmail;
+
+            db_helper.getObjectsFromDb([sqlG, email], function (err, parent_info) {
+                if (!err) {
+                    if (parent_info[0] === undefined)  //if there is no such email in parents table
                     {
-                        status='p';
-                        id=parent_info[0].guardian_id;
-                        console.log(REGISTERED );
-                        request.session.loggedin = true;
-                        request.session.username = email;
+                        db_helper.getObjectsFromDb([sqlT, email], function (err, teacher_info) {
+                            if (!err) {
+                                if (teacher_info[0] === undefined) // if there is also no such email in teachers table
+                                {
+                                    response.redirect('/');
+                                } else {
+                                    hash = teacher_info[0].teacher_hashpassword;
+                                    salt = teacher_info[0].teacher_salt;
+                                    REGISTERED = (hash === apiPassword.hashSaltCombinedWithPassword(password, salt).hash);
+                                    if (REGISTERED) {
+                                        status = 't';
+                                        id = teacher_info[0].teacher_id;
+                                        console.log(REGISTERED);
+                                        request.session.loggedin = true;
+                                        request.session.username = email;
+                                        var url = '/' + status + '/' + id + '';
+                                        response.redirect(url);
+                                        response.end();
+                                    } else response.redirect('/');
 
-                        var url = '/' + status + '/' + id + '';
+                                }
+                            } else response.redirect('/');
 
-                        response.redirect(url);
-                        response.end();
+                        });
+                    } else {
+                        hash = parent_info[0].guardian_hashpassword;
+                        salt = parent_info[0].guardian_salt;
+                        REGISTERED = (hash === apiPassword.hashSaltCombinedWithPassword(password, salt).hash);
+                        if (REGISTERED) {
+                            status = 'p';
+                            id = parent_info[0].guardian_id;
+                            console.log(REGISTERED);
+                            request.session.loggedin = true;
+                            request.session.username = email;
+
+                            var url = '/' + status + '/' + id + '';
+
+                            response.redirect(url);
+                            response.end();
+                        } else response.redirect('/');
+
                     }
-                    else response.redirect('/');
 
-                }
-
-            }
-            else response.redirect('/');
-        });
-    } 
+                } else response.redirect('/');
+            });
+        }
+    }
     else {
         response.redirect('/');
         response.end();

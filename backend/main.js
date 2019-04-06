@@ -15,6 +15,7 @@ function configureEndpoints(app) {
     const admin_routes = require('./routes/admin-routes');
 
     app.post('/auth', api.authenticate);
+    app.get('/logout', api.logout);
 
     app.use('/', routes);
     app.use('/p', parent_routes);
