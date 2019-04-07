@@ -13,6 +13,10 @@
     "admin": {
       "login": "pervotsvit_ua@gmail.com",
       "password": "1"
+    },
+    "email": {
+      "user": "manzhurik@gmail.com",
+      "pass": "28kissme"
     }
   }
 }
