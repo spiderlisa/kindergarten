@@ -74,6 +74,60 @@ exports.getObjectsFromDb = function (params, callback) {
     return result;
 };
 
+/**
+ * Inserts into DB
+ *
+ * @param params[0] - sql, params[1..] - query parameters
+ * @param callback - error
+ */
+exports.insertObjectsToDb = function (params, callback) {
+    var request = new Request(params[0], function(err, rowCount) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(rowCount + ' rows');
+        }
+        callback(err);
+    });
+
+    if (params.length > 1) {
+        var paramNames = parameterNames(params[0]);
+        paramNames.forEach(function (name, i) {
+            console.log(name + " - " + params[i + 1]);
+            if ((typeof name) == "string" && /[\u0400-\u04FF]/.test(params[i + 1])) {
+                request.addParameter(name, TYPES.NChar, params[i + 1]);
+            } else if ((typeof name) == "string") {
+                request.addParameter(name, TYPES.VarChar, params[i + 1]);
+            } else if ((typeof name) == "num" && name.includes(".")) {
+                request.addParameter(name, TYPES.Real, params[i + 1]);
+            } else if ((typeof name) == "num") {
+                request.addParameter(name, TYPES.Int, params[i + 1]);
+            } else if ((typeof name) == "bool") {
+                request.addParameter(name, TYPES.Bit, params[i + 1]);
+            } else {
+                console.error("DB helper failed to put values into DB because actions " +
+                    "for this parameter type are not predefined.");
+            }
+        });
+    }
+
+    function parameterNames(sql) {
+        var p1 = sql.split('@');
+        var p2 = [];
+        p1.forEach(function (p, i) {
+            if (i>0) {
+                var r = p.split(' ');
+                p2.push(r[0]);
+            }
+        });
+        console.log("Param names: " + p2);
+        return p2;
+    }
+
+    dbConnection.execSql(request);
+};
+
+
 
 exports.connectToDB = function () {
     var config = {
