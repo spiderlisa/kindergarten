@@ -7,11 +7,13 @@
         </div>
         <div class="col">
             <% if (reg_type == "child") { %>
-                <% include templates/register-child.ejs %>
+                    <% include templates/register-child.ejs %>
             <% } else if (reg_type == "parent") { %>
-                <% include templates/register-parent.ejs %>
+                    <% include templates/register-parent.ejs %>
             <% } else if (reg_type == "teacher") { %>
-                <% include templates/register-teacher.ejs %>
+                    <% include templates/register-teacher.ejs %>
+            <% } else if (reg_type == "group") { %>
+                    <% include templates/register-group.ejs %>
             <% } %>
         </div>
     </div>

@@ -23,7 +23,7 @@
             Опікун
             <select class="form-control" name="parent">
                 <% parents.forEach(function (parent) { %>
-                <option value="<%= parent.guardian_id %>"><%=parent.guardian_last_name%> <%=parent.guardian_first_name%></option>
+                    <option value="<%= parent.guardian_id %>"><%=parent.guardian_last_name%> <%=parent.guardian_first_name%></option>
                 <% }); %>
             </select>
         </label>
@@ -31,12 +31,13 @@
     <div class="form-group">
         <label>Групи</label>
         <% groups.forEach(function (group) { %>
-            <div class="form-check">
-                <input value="<%=group.group_id%>" class="form-check-input" type="radio" name="group">
-                <label class="form-check-label">Група "<%=group.group_name%>"</label>
-            </div>
+        <div class="form-check">
+            <input value="<%=group.group_id%>" class="form-check-input" type="radio" name="group">
+            <label class="form-check-label">Група "<%=group.group_name%>"</label>
+        </div>
         <% }); %>
     </div>
 
     <button class="btn btn-primary btn-block mt-4" type="submit">Зареєструвати</button>
+
 </form>

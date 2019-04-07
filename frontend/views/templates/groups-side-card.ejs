@@ -4,7 +4,7 @@
     <div class="card-body">
         <div class="card-title h5 mb-2">
             <a href="http://localhost:8082/t/<%= user.teacher_id %>/g/<%= group.group_id %>"
-               class="hidden-ref">Група "<%= group.group_name %>"</a>
+               class="hidden-ref">Група "<%=(group.group_name).trim()%>"</a>
         </div>
         <p class="card-subtitle text-muted small-text"><%= group.ch_n %> учні(в)</p>
     </div>

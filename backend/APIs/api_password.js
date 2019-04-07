@@ -1,16 +1,10 @@
-
 var crypto = require('crypto');
 var nodemailer = require("nodemailer");
 var smtpTransport = require('nodemailer-smtp-transport');
-var json = require('./data/kindergarten-data.json');
+var json = require('../data/kindergarten-data.json');
 var generatePassword = require('password-generator');
 
-
-
-
-
-exports.generatePassword = function(email)
-{
+exports.generatePassword = function(email) {
     var password = generatePassword();
     var hashdata = saltHashPassword1(password);
     var salt = hashdata.salt;
@@ -28,12 +22,7 @@ exports.generatePassword = function(email)
     return res;
 };
 
-
-
-
 function sendEmail(account, params) {
-
-
     console.log(account.user);
     console.log(account.pass);
 
@@ -70,7 +59,6 @@ function sendEmail(account, params) {
     });
 }
 
-
 var genRandomString = function(length){
     return crypto.randomBytes(Math.ceil(length/2))
         .toString('hex') /** convert to hexadecimal format */
@@ -93,8 +81,7 @@ var sha512 = function(password, salt){
     };
 };
 
-exports.hashSaltCombinedWithPassword = function(userpassword, salt)
-{
+exports.hashSaltCombinedWithPassword = function(userpassword, salt) {
     var hashResult = sha512(userpassword, salt);
     var res ={hash: hashResult.passwordHash, salt:hashResult.salt}
 
@@ -111,14 +98,14 @@ exports.saltHashPassword = function(userpassword)
     return res;
 };
 
-function saltHashPassword1(userpassword)
-{
+function saltHashPassword1(userpassword) {
     var salt = genRandomString(16); /** Gives us salt of length 16 */
-var passwordData = sha512(userpassword, salt);
+    var passwordData = sha512(userpassword, salt);
 
     var res ={hash: passwordData.passwordHash, salt:passwordData.salt}
 
     return res;
 };
+
 
 

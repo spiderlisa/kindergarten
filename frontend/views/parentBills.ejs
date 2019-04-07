@@ -36,9 +36,11 @@
                 </div>
             </div>
             <div id="all-bills">
-                <% bills.forEach( function (info) { %>
+                <% if (bills.length == 0) { %>
+                <div class="h5"> У вас ще немає рахунків. </div>
+                <% } else { bills.forEach( function (bill) { %>
                     <% include templates/bill.ejs %>
-                <% }); %>
+                <% }); }%>
             </div>
         </div>
     </div>
