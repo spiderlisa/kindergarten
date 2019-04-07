@@ -17,6 +17,8 @@ function configureEndpoints(app) {
     app.post('/auth', api.authenticate);
     app.get('/logout', api.logout);
 
+
+
     app.use('/', routes);
     app.use('/p', parent_routes);
     app.use('/t', teacher_routes);
