@@ -2,9 +2,9 @@ exports.guardianById = "SELECT * " +
                        "FROM guardian " +
                        "WHERE guardian_id=@userId";
 
-exports.childrenByGuardId = "SELECT child_first_name, child_last_name, child_dob, group_id " +
-                            "FROM child " +
-                            "WHERE guardian_id=@userId";
+exports.childrenByGuardId = "SELECT child_first_name, child_last_name, child_dob, group_name " +
+    "FROM child AS c JOIN [group] AS g ON g.group_id=c.group_id " +
+    "WHERE guardian_id=@userId";
 
 exports.teacherById = "SELECT * " +
                       "FROM teacher " +

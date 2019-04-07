@@ -41,11 +41,13 @@ exports.authenticate = function(request, response) {
             db_helper.getObjectsFromDb([sqlG, email], function (err, parent_info) {
                 if (!err) {
                     if (parent_info[0] === undefined)  { //if there is no such email in parents table
+                        console.log("Search in parents");
                         db_helper.getObjectsFromDb([sqlT, email], function (err, teacher_info) {
                             if (!err) {
                                 if (teacher_info[0] === undefined) { // if there is also no such email in teachers table
                                     response.redirect('/');
                                 } else {
+                                    console.log("Search in parents");
                                     hash = teacher_info[0].teacher_hashpassword;
                                     salt = teacher_info[0].teacher_salt;
                                     REGISTERED = (hash === apiPassword.hashSaltCombinedWithPassword(password, salt).hash);
@@ -74,6 +76,7 @@ exports.authenticate = function(request, response) {
                             } else response.redirect('/');
                         });
                     } else {
+                        console.log("Parent");
                         hash = parent_info[0].guardian_hashpassword;
                         salt = parent_info[0].guardian_salt;
                         REGISTERED = (hash === apiPassword.hashSaltCombinedWithPassword(password, salt).hash);
