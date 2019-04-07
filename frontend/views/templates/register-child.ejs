@@ -1,29 +1,29 @@
-<form class="form-register">
+<form action="registerChild" method="POST" class="form-register">
     <div class="h3 mb-4 page-title">Реєстрація дитини</div>
     <div class="form-group">
         <label>ПІБ</label>
         <div class="row">
             <div class="col-md-4">
-                <input type="text" class="form-control" placeholder="Прізвище" name="last_name" required>
+                <input name= "lastname" type="text" class="form-control" placeholder="Прізвище" required>
             </div>
             <div class="col-md-4">
-                <input type="text" class="form-control" placeholder="Ім'я" name="first_name" required>
+                <input name= "name" type="text" class="form-control" placeholder="Ім'я"  required>
             </div>
             <div class="col-md-4">
-                <input type="text" class="form-control" placeholder="По батькові" name="father_name">
+                <input name= "secondname" type="text" class="form-control" placeholder="По батькові" >
             </div>
         </div>
     </div>
     <div class="form-group">
         <label for="inputDob">Дата нарождення</label>
-        <input type="text" class="form-control" id="inputDob" name="dob" placeholder="05.04.2000" required>
+        <input  type="text" class="form-control" id="inputDob" name="dob" placeholder="2014-05-12" required>
     </div>
     <div class="form-group">
         <label>
             Опікун
             <select class="form-control" name="parent">
                 <% parents.forEach(function (parent) { %>
-                <option value=""><%=parent.guardian_last_name%> <%=parent.guardian_first_name%></option>
+                <option value="<%= parent.guardian_id %>"><%=parent.guardian_last_name%> <%=parent.guardian_first_name%></option>
                 <% }); %>
             </select>
         </label>
@@ -32,7 +32,7 @@
         <label>Групи</label>
         <% groups.forEach(function (group) { %>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="group">
+                <input value="<%=group.group_id%>" class="form-check-input" type="radio" name="group">
                 <label class="form-check-label">Група "<%=group.group_name%>"</label>
             </div>
         <% }); %>
