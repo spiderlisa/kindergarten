@@ -52,6 +52,7 @@ exports.guardianByEmail = "SELECT guardian_id, guardian_hashpassword, guardian_s
     "FROM guardian " +
     "WHERE guardian_email=@guardianEmail";
 
+
 exports.allReviewsForTeacher = "SELECT report_note, report_time, child_last_name, " +
     "child_first_name, teacher_last_name, teacher_first_name " +
     "FROM ( report AS r JOIN child AS c ON c.child_id=r.child_id ) JOIN teacher AS t ON t.teacher_id=r.teacher_id " +
@@ -67,3 +68,32 @@ exports.allReviewsForTeacher = "SELECT report_note, report_time, child_last_name
             "WHERE tg1.teacher_id=@teacherId " +
         ") " +
     ") )";
+
+
+exports.selectTeacherByEmail = "SELECT teacher_id " +
+    "FROM teacher " +
+    "WHERE teacher_email = @teacherEmail ";
+
+exports.insertChild = "INSERT INTO CHILD (child_last_name," +
+    "child_first_name, child_father_name, child_dob," +
+    "guardian_id,group_id)" +
+    "VALUES ( @childLastName , @childName , @child_father_name , @childdob , @childParentID , @childGroupID ) ";
+
+
+exports.insertParent = "INSERT INTO GUARDIAN (guardian_last_name, " +
+    "guardian_first_name, guardian_father_name, guardian_phone_n," +
+    "guardian_address, guardian_work, guardian_email, guardian_discount, guardian_hashpassword, guardian_salt ) " +
+    "VALUES ( @guardian_last_name , @guardian_first_name , @guardian_father_name , @guardian_phone_n ," +
+    " @guardian_address , @guardian_work , @guardian_email , @guardian_discount , @guardian_hashpassword , @guardian_salt ) ";
+
+
+exports.insertTeacher = "INSERT INTO TEACHER (teacher_last_name, " +
+    "teacher_first_name, teacher_father_name, teacher_phone_n, " +
+    "teacher_address, teacher_email, teacher_hashpassword, teacher_salt ) " +
+    "VALUES ( @teacher_last_name , " +
+    " @teacher_first_name , @teacher_father_name , @teacher_phone_n , " +
+    " @teacher_address , @teacher_email , @teacher_hashpassword , @teacher_salt )";
+
+exports.insertTeacher_Group = "INSERT INTO TEACHER_GROUP ( teacher_id,group_id)  " +
+    "VALUES ( @teacher_id ,  @group_id )";
+

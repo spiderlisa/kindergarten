@@ -1,4 +1,4 @@
-<form class="form-register">
+<form action="registerTeacher" method="POST" class="form-register">
     <div class="h3 mb-4 page-title">Реєстрація вихователя</div>
     <div class="form-group">
         <label>ПІБ</label>
@@ -40,7 +40,7 @@
         <label>Групи</label>
         <% groups.forEach(function (group) { %>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="group">
+                <input value = "<%= group.group_id %>" class="form-check-input" type="checkbox" name="group">
                 <label class="form-check-label">
                     Група "<%= group.group_name %>"
                 </label>
