@@ -59,6 +59,21 @@ exports.renderNewGroupPage = function (req, res) {
     }
 };
 
+exports.renderBillsPage = function(req, res) {
+    if (req.session.loggedin === true && req.session.username === json.kindergarten.admin.login) {
+        db_helper.getObjectsFromDb([queries.bills], function (err, bills) {
+            if (!err) {
+                res.render('adminPage', {
+                    pagetitle: "Рахунки",
+                    bills: bills,
+                    reg_type: "bills",
+                    type: "admin"
+                });
+            }
+        });
+    }
+};
+
 exports.registerChild = function(request, response) {
     //console.log(request.body);
 
@@ -206,6 +221,58 @@ exports.registerGroup = function(request, response) {
                 });
             }
         });
-
-
 };
+
+exports.generateBills = function (req, res) {
+    var d = new Date();
+    var curr_month = d.getMonth()-1;
+    var curr_year = d.getFullYear();
+    var deadline = d + 30;
+
+    var sql = queries.allChildrenId;
+    db_helper.getObjectsFromDb([sql], function (err, children) {
+        if (!err) {
+            children.forEach(function (child) {
+                calculateSum({
+                    childId: child,
+                    month: curr_month,
+                    year: curr_year
+                }, function (err, sum) {
+                    if (!err) {
+                        db_helper.insertObjectsToDb([curr_month, curr_year, deadline, 0, "", null, child, sum],
+                            function (err) {
+                            if (err) {
+                                console.error(err);
+                            } else {
+                                console.log("Bill generated for " + child);
+                                res.redirect("/a/bills");
+                            }
+                        });
+                    }
+                });
+            });
+        }
+    });
+};
+
+function calculateSum (params, res) {
+    var month_price = parseFloat(json.kindergarten.pricelist.monthly);
+    var food_price = parseFloat(json.kindergarten.pricelist.daily_food);
+    var sum = parseFloat(month_price);
+
+    var sql = queries.guardianDiscountByChildId;
+    db_helper.getObjectsFromDb([sql, params.childId], function (err, discount) {
+        if (!err) {
+           sum = sum - month_price*0.01*parseFloat(discount[0]);
+
+           sql = queries.monthlyPresenceByChildId;
+           db_helper.getObjectsFromDb([sql, params.childId, params.month, params.year], function (err, pres_n) {
+               if (!err) {
+                   sum = sum + food_price * pres_n[0];
+               } else res(err);
+           });
+        } else res(err);
+    });
+
+    return sum;
+}

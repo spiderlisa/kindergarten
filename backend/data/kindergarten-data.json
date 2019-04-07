@@ -17,6 +17,10 @@
     "email": {
       "user": "manzhurik@gmail.com",
       "pass": "28kissme"
+    },
+    "pricelist": {
+      "monthly": "1000",
+      "daily_food": "40"
     }
   }
 }
