@@ -156,33 +156,32 @@ exports.fillTeacherPresence = function (req, res) {
         var sql = queries.teacherById;
         db_helper.getObjectsFromDb([sql, userId], function (err, teacher_info) {
             if (!err) {
-                sql = queries.childrenByGroupId;
-                db_helper.getObjectsFromDb([sql, 3], function (err, children_info) {
-                    if (!err && req.session.loggedin === true && req.session.username === teacher_info[0].teacher_email.trim()) {
-                        res.render('teacherPresence', {
-                            pagetitle: "Відвідування",
-                            user: teacher_info[0],
-                            groups: [ // TODO
-                                {
-                                    id: 3,
-                                    name: "Сонечко",
-                                    number: 23,
-                                },
-                                {
-                                    id: 4,
-                                    name: "Пташка",
-                                    number: 21,
+                sql = queries.childrenFromMainTeacherGroup;
+                db_helper.getObjectsFromDb([sql, userId], function (err, children_info) {
+                    if (!err) {
+                        sql=queries.groupsByTeacherId;
+                        db_helper.getObjectsFromDb([sql, userId], function (err, groups_info) {
+                            if (!err) {
+                            sql = queries.mainGroupByTeacherId;
+                            db_helper.getObjectsFromDb([sql, userId], function (err, maingroup) {
+                                if (!err && req.session.loggedin === true && req.session.username === teacher_info[0].teacher_email.trim()) {
+                                    res.render('teacherPresence', {
+                                        pagetitle: "Відвідування",
+                                        user: teacher_info[0],
+                                        groups: groups_info,
+                                        main_group: maingroup,
+                                        children: children_info,
+                                        type: "teacher",
+                                        presence: true,
+                                    });
                                 }
-                            ],
-                            main_group: "Сонечко",
-                            children: children_info,
-                            type: "teacher",
-                            presence: true,
+                                else
+                                {
+                                    res.redirect('/');
+                                }
+                            });
+                            }
                         });
-                    }
-                    else
-                    {
-                        res.redirect('/');
                     }
                 });
             }
@@ -196,7 +195,35 @@ exports.fillTeacherPresence = function (req, res) {
 };
 
 exports.fillTeacherReviews = function (req, res) {
-
+    if(req.session.loggedin === true) {
+        var userId = req.params.teacherId;
+        var sql = queries.teacherById;
+        db_helper.getObjectsFromDb([sql, userId], function (err, teacher_info) {
+            if (!err) {
+                sql=queries.groupsByTeacherId;
+                db_helper.getObjectsFromDb([sql, userId], function (err, groups_info) {
+                    if (!err) {
+                        sql = queries.childrenFromAllTeachersGroups;
+                        db_helper.getObjectsFromDb([sql, userId], function (err, children) {
+                            if (!err) {
+                                sql = queries.allReviewsForTeacher;
+                                db_helper.getObjectsFromDb([sql, userId], function (err, reviews) {
+                                    if (!err && req.session.loggedin === true && req.session.username === teacher_info[0].teacher_email.trim()) {
+                                        res.render('teacherReviews', {
+                                            pagetitle: "Відгуки",
+                                            reviews: reviews,
+                                            children: children,
+                                            groups: groups_info
+                                        })
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
 };
 
 exports.renderRegChildPage = function (req, res) {

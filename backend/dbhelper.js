@@ -13,9 +13,9 @@ let dbConnection;
 exports.getObjectsFromDb = function (params, callback) {
     var request = new Request(params[0], function(err, rowCount) {
         if (err) {
-            console.log(err);
+            console.log(params[0] + " " + err);
         } else {
-            console.log(rowCount + ' rows');
+            console.log(params[0] + " " + rowCount + ' rows');
         }
         callback(err, result);
     });
