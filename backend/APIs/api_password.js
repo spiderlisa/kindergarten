@@ -1,7 +1,7 @@
 var crypto = require('crypto');
 var nodemailer = require("nodemailer");
 var smtpTransport = require('nodemailer-smtp-transport');
-var json = require('./data/kindergarten-data.json');
+var json = require('../data/kindergarten-data.json');
 var generatePassword = require('password-generator');
 
 exports.generatePassword = function(email) {
