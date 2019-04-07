@@ -14,11 +14,11 @@ exports.childById = "SELECT * " +
                     "FROM child " +
                     "WHERE child_id=@userId";
 
-exports.childrenFromMainTeacherGroup = "SELECT child_first_name, child_last_name " +
+exports.childrenFromMainTeacherGroup = "SELECT child_id, child_first_name, child_last_name " +
                             "FROM child " +
                             "WHERE group_id IN (SELECT group_id FROM [group] WHERE teacher_head_id=@teacherId )";
 
-exports.childrenFromAllTeachersGroups = "SELECT child_first_name, child_last_name " +
+exports.childrenFromAllTeachersGroups = "SELECT child_id, child_first_name, child_last_name " +
     "FROM child AS c " +
     "WHERE c.group_id IN ( " +
     "SELECT g.group_id " +
@@ -109,3 +109,8 @@ exports.insertTeacher_Group = "INSERT INTO TEACHER_GROUP ( teacher_id,group_id) 
 
 exports.insertGroup = "INSERT INTO [GROUP] (group_name, group_year, teacher_head_id) " +
     "VALUES ( @group_name , @group_year , @teacher_head_id );";
+
+
+exports.insertReview = "INSERT INTO REPORT VALUES ( @teacher_id  ,  @child_id  ,  @report_time ,  @report_note   );";
+
+//'2019-01-14 17:42:10'

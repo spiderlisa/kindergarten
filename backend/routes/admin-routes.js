@@ -13,4 +13,6 @@ router.post('/registerParent', api.registerParent);
 router.post('/registerTeacher', api.registerTeacher);
 router.post('/registerGroup', api.registerGroup);
 
+
+
 module.exports = router;

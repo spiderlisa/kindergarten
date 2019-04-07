@@ -123,3 +123,60 @@ exports.fillTeacherReviews = function (req, res) {
         res.redirect('/');
     }
 };
+
+exports.addNewReview = function (req, res) {
+    if(req.session.loggedin === true) {
+
+        var userId = req.params.teacherId;
+        console.log(req.body);
+        var child = req.body.child;
+        var textReview = req.body.textReview;
+        var url = "/t/"+userId+"/reviews";
+
+        var sql = queries.insertReview;
+
+        var today = new Date();
+        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        var dateTime = date+' '+time;
+
+        db_helper.insertObjectsToDb([sql, userId , child,  dateTime   ,textReview],
+            function (err) {
+
+                if (!err && req.session.loggedin === true) {
+
+                    res.redirect(url);
+                }
+            });
+
+    }
+};
+
+exports.markPresence = function (req, res) {
+    if(req.session.loggedin === true) {
+
+        var userId = req.params.teacherId;
+        console.log(req.body);
+
+       /* var child = req.body.child;
+        var textReview = req.body.textReview;
+        var url = "/t/"+userId+"/reviews";
+
+        var sql = queries.insertReview;
+
+        var today = new Date();
+        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        var dateTime = date+' '+time;
+
+        db_helper.insertObjectsToDb([sql, userId , child,  dateTime   ,textReview],
+            function (err) {
+
+                if (!err && req.session.loggedin === true) {
+
+                    res.redirect(url);
+                }
+            });
+            */
+    }
+};
