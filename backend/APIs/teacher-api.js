@@ -31,18 +31,22 @@ exports.fillTeacherPresence = function (req, res) {
                                         });
 
                                     } else {
+                                        console.error(err);
                                         res.redirect('/');
                                     }
                                 });
                             }else {
+                                console.error(err);
                                 res.redirect('/');
                             }
                         });
                     }else {
+                        console.error(err);
                         res.redirect('/');
                     }
                 });
             }else {
+                console.error(err);
                 res.redirect('/');
             }
         });
@@ -76,8 +80,10 @@ exports.fillTeacherReviews = function (req, res) {
                                     if (!err) {
 
                                         sql = queries.allReviewsForTeacher;
+                                        console.log(sql);
                                         db_helper.getObjectsFromDb([sql, userId], function (err, reviews) {
                                             if (!err) {
+                                                console.log(reviews);
 
                                                 res.render('teacherReviews', {
                                                     pagetitle: "Відгуки",
@@ -89,22 +95,27 @@ exports.fillTeacherReviews = function (req, res) {
                                                 });
 
                                             } else {
+                                                console.error(err);
                                                 res.redirect('/');
                                             }
                                         });
                                     }else {
+                                        console.error(err);
                                         res.redirect('/');
                                     }
                                 });
                             }else {
+                                console.error(err);
                                 res.redirect('/');
                             }
                         });
                     }else {
+                        console.error(err);
                         res.redirect('/');
                     }
                 });
             }else {
+                console.error(err);
                 res.redirect('/');
             }
         });

@@ -52,6 +52,12 @@ exports.guardianByEmail = "SELECT guardian_id, guardian_hashpassword, guardian_s
     "FROM guardian " +
     "WHERE guardian_email=@guardianEmail";
 
+exports.billsByTeacherId = "SELECT * " +
+    "FROM bill JOIN child ON child.child_id=bill.child_id " +
+    "WHERE bill.child_id IN ( " +
+    "SELECT c.child_id " +
+    "FROM child AS c " +
+    "WHERE c.guardian_id=@userId )";
 
 exports.allReviewsForTeacher = "SELECT report_note, report_time, child_last_name, " +
     "child_first_name, teacher_last_name, teacher_first_name " +

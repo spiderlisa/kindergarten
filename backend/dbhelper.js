@@ -59,10 +59,12 @@ exports.getObjectsFromDb = function (params, callback) {
     request.on('row', function (columns) {
         var obj = {};
         columns.forEach(function(column) {
-            if (column.metadata.colName.toString().includes("dob")) {
+            if (column.metadata.colName.toString().includes("dob") || column.metadata.colName.toString().includes("deadline")) {
                 obj[column.metadata.colName] = convertDate(column.value.toString());
             } else if (column.metadata.colName.toString().includes("time")) {
                 obj[column.metadata.colName] = convertDateTime(column.value.toString());
+            } else if (column.metadata.colName.toString().includes("month")) {
+                obj[column.metadata.colName] = convertMonth(column.value.toString());
             } else {
                 obj[column.metadata.colName] = column.value;
             }
@@ -168,6 +170,16 @@ function convertDate (d) {
         Oct: "10", Nov: "11", Dec: "12"};
 
     return parts[2]+"."+months[parts[1]]+"."+parts[3];
+}
+
+function convertMonth (m) {
+    var months = {
+        "1": "січень", "2": "лютий", "3": "березень",
+        "4": "квітень", "5": "травень", "6": "червень",
+        "7": "липень", "8": "серпень", "9": "вересень",
+        "10": "жовтень", "11": "листопад", "12": "грудень" };
+
+    return months[m.toString()];
 }
 
 function convertDateTime (d) {
