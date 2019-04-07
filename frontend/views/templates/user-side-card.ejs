@@ -35,7 +35,9 @@
 </div>
 <% if (type == "parent") { %>
     <a href="http://localhost:8082/p/<%= user.guardian_id %>" class="btn btn-primary side-btn" id="bills-btn">Мої рахунки</a>
-<% } else if (type == "teacher") { %>
-    <a href="http://localhost:8082/t/<%= user.teacher_id %>" class="btn btn-primary side-btn" id="presence-btn">Відвідування</a>
+<% } else if (type == "head_teacher" || type == "teacher") { %>
     <a href="http://localhost:8082/t/<%= user.teacher_id %>/reviews" class="btn btn-primary side-btn" id="reviews-btn">Відгуки</a>
+<% } %>
+<% if (type == "head_teacher") { %>
+    <a href="http://localhost:8082/t/<%= user.teacher_id %>" class="btn btn-primary side-btn" id="presence-btn">Відвідування</a>
 <% } %>

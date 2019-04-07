@@ -16,7 +16,7 @@ exports.childById = "SELECT * " +
 
 exports.childrenFromMainTeacherGroup = "SELECT child_first_name, child_last_name " +
                             "FROM child " +
-                            "WHERE group_id IN (SELECT group_id FROM [teacher_group] WHERE teacher_id=@teacherId )";
+                            "WHERE group_id IN (SELECT group_id FROM [group] WHERE teacher_head_id=@teacherId )";
 
 exports.childrenFromAllTeachersGroups = "SELECT child_first_name, child_last_name " +
     "FROM child AS c " +
@@ -32,7 +32,9 @@ exports.guardians = "SELECT guardian_id, guardian_last_name, guardian_first_name
 
 exports.groups = "SELECT group_id, group_name FROM [group]";
 
-exports.mainGroupByTeacherId = "SELECT * FROM [teacher_group] WHERE teacher_id=@teacherId";
+exports.teachers = "SELECT teacher_id, teacher_last_name, teacher_first_name FROM teacher";
+
+exports.mainGroupByTeacherId = "SELECT * FROM [group] WHERE teacher_head_id=@teacherId";
 
 exports.groupsByTeacherId = "SELECT g.group_id, g.group_name, Count(child_id) AS ch_n " +
     "FROM [group] AS g JOIN child AS c ON c.group_id=c.group_id " +
@@ -53,7 +55,8 @@ exports.guardianByEmail = "SELECT guardian_id, guardian_hashpassword, guardian_s
 exports.allReviewsForTeacher = "SELECT report_note, report_time, child_last_name, " +
     "child_first_name, teacher_last_name, teacher_first_name " +
     "FROM ( report AS r JOIN child AS c ON c.child_id=r.child_id ) JOIN teacher AS t ON t.teacher_id=r.teacher_id " +
-    "WHERE r.report_id IN ( SELECT r1.report_id " +
+    "WHERE CONCAT(r.report_note, ' ', r.report_time, ' ', r.child_id, ' ', r.teacher_id) IN " +
+    "( SELECT CONCAT(r1.report_note, ' ', r1.report_time, ' ', r1.child_id, ' ', r1.teacher_id) " +
     "FROM report AS r1 " +
     "WHERE NOT EXISTS ( " +
         "SELECT tg.teacher_id " +

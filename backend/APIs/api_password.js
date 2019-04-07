@@ -1,4 +1,3 @@
-
 var crypto = require('crypto');
 
 var genRandomString = function(length){

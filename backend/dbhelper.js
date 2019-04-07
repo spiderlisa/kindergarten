@@ -12,10 +12,11 @@ let dbConnection;
  */
 exports.getObjectsFromDb = function (params, callback) {
     var request = new Request(params[0], function(err, rowCount) {
+        //console.log(params[0]);
         if (err) {
-            console.log(params[0] + " " + err);
+            console.log(err);
         } else {
-            console.log(params[0] + " " + rowCount + ' rows');
+            console.log(rowCount + ' rows');
         }
         callback(err, result);
     });
@@ -60,6 +61,8 @@ exports.getObjectsFromDb = function (params, callback) {
         columns.forEach(function(column) {
             if (column.metadata.colName.toString().includes("dob")) {
                 obj[column.metadata.colName] = convertDate(column.value.toString());
+            } else if (column.metadata.colName.toString().includes("time")) {
+                obj[column.metadata.colName] = convertDateTime(column.value.toString());
             } else {
                 obj[column.metadata.colName] = column.value;
             }
@@ -97,12 +100,10 @@ exports.connectToDB = function () {
                 console.log(err);
             else {
                 console.log("Connection established.");
-
             }
         }
     );
 };
-
 
 function convertDate (d) {
     var parts = d.split(" ");
@@ -113,4 +114,15 @@ function convertDate (d) {
         Oct: "10", Nov: "11", Dec: "12"};
 
     return parts[2]+"."+months[parts[1]]+"."+parts[3];
+}
+
+function convertDateTime (d) {
+    var parts = d.split(" ");
+    var months = {
+        Jan: "01", Feb: "02", Mar: "03",
+        Apr: "04", May: "05", Jun: "06",
+        Jul: "07", Aug: "08", Sep: "09",
+        Oct: "10", Nov: "11", Dec: "12"};
+
+    return parts[2]+"."+months[parts[1]]+"."+parts[3]+" "+parts[4];
 }

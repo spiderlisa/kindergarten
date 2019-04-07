@@ -10,7 +10,7 @@
         <% } %>
     </h1>
     <ul class="list-group list-group-flush" id="group-list">
-        <% if (children.length==0) { console.log("Zero"); %>
+        <% if (children.length==0) { %>
         <li class="list-group-item">В цій групі немає жодної дитини</li>
         <% } else { Array.from(children).forEach(function (child) { %>
             <li class="list-group-item">

@@ -155,6 +155,10 @@ a {
     border-top-right-radius: 0;
 }
 
+select .form-control {
+    width: 100% !important;
+}
+
 @media (min-width: 992px) {
     .container-fluid {
         padding-left: 4rem !important;
