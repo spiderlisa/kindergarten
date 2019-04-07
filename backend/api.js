@@ -186,34 +186,31 @@ exports.registerTeacher = function(request, response) {
 
                 var sqlSelect = queries.selectTeacherByEmail;
 
-                response.redirect('/a/register-teacher');
-
-               /* db_helper.getObjectsFromDb([sqlSelect, email],
+                db_helper.getObjectsFromDb([sqlSelect, email],
                     function (err, parent_info) {
-                        if (!err && request.session.loggedin === true)
+                        if (!err && request.session.loggedin === true && groups.length>0)
                         {
                             teacherId = parent_info[0].teacher_id;
 
-                            var i= 0;
-                            while(i < groups.length)
+                            var insertSql= "insert into teacher_group values"
+
+                            for(var i= 0; i < groups.length; i++)
                             {
-                                db_helper.insertObjectsToDb([sql2, teacherId, groups[i] ],
-                                    function (err) {
-                                        if (!err && request.session.loggedin === true) {
-                                            //response.redirect('/a/register-teacher');
-                                            console.log("ADDED TO TEACHER_GROPS -- "+ i);
-                                        }
-                                        //else response.redirect('/a/register-teacher');
-                                });
-                                i++;
+                                if(i>0) insertSql = insertSql + ",";
+                                insertSql = insertSql + "(" + teacherId + "," + groups[i] + ")";
                             }
-                            //response.redirect('/a/register-teacher');
+                            db_helper.insertObjectsToDb([insertSql],
+                                function (err){
+                                    if (!err && request.session.loggedin === true)
+                                    {
+                                        response.redirect('/a/register-teacher');
+                                    }
+                            });
                         }
                         else response.redirect('/a/register-teacher');
-                });*/
-            }
 
-            else response.redirect('/a/register-teacher');
+                });
+            }
         });
 
 };
