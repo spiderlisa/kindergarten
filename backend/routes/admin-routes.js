@@ -11,5 +11,6 @@ router.get('/new-group', api.renderNewGroupPage);
 router.post('/registerChild', api.registerChild);
 router.post('/registerParent', api.registerParent);
 router.post('/registerTeacher', api.registerTeacher);
+router.post('/registerGroup', api.registerGroup);
 
 module.exports = router;

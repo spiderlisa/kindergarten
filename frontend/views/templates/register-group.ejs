@@ -1,4 +1,4 @@
-<form class="form-register">
+<form action="registerGroup" method="POST" class="form-register">
     <div class="h3 mb-4 page-title">Нова група</div>
     <div class="form-group">
         <label>Назва групи</label>
@@ -12,7 +12,7 @@
         <label>Головний вихователь</label>
         <select class="form-control" name="teacher">
             <% teachers.forEach(function (teacher) { %>
-            <option value=""><%=teacher.teacher_last_name%> <%=teacher.teacher_first_name%></option>
+            <option value="<%=teacher.teacher_id%>"><%=teacher.teacher_last_name%> <%=teacher.teacher_first_name%></option>
             <% }); %>
         </select>
     </div>

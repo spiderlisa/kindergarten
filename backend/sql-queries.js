@@ -74,6 +74,10 @@ exports.selectTeacherByEmail = "SELECT teacher_id " +
     "FROM teacher " +
     "WHERE teacher_email = @teacherEmail ";
 
+exports.selectGroupByHeadTeacher = "SELECT group_id " +
+    "FROM [group] " +
+    "WHERE teacher_head_id=@teacher_head_id ";
+
 exports.insertChild = "INSERT INTO CHILD (child_last_name," +
     "child_first_name, child_father_name, child_dob," +
     "guardian_id,group_id)" +
@@ -86,7 +90,6 @@ exports.insertParent = "INSERT INTO GUARDIAN (guardian_last_name, " +
     "VALUES ( @guardian_last_name , @guardian_first_name , @guardian_father_name , @guardian_phone_n ," +
     " @guardian_address , @guardian_work , @guardian_email , @guardian_discount , @guardian_hashpassword , @guardian_salt ) ";
 
-
 exports.insertTeacher = "INSERT INTO TEACHER (teacher_last_name, " +
     "teacher_first_name, teacher_father_name, teacher_phone_n, " +
     "teacher_address, teacher_email, teacher_hashpassword, teacher_salt ) " +
@@ -97,3 +100,6 @@ exports.insertTeacher = "INSERT INTO TEACHER (teacher_last_name, " +
 exports.insertTeacher_Group = "INSERT INTO TEACHER_GROUP ( teacher_id,group_id)  " +
     "VALUES ( @teacher_id ,  @group_id )";
 
+
+exports.insertGroup = "INSERT INTO [GROUP] (group_name, group_year, teacher_head_id) " +
+    "VALUES ( @group_name , @group_year , @teacher_head_id );";

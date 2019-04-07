@@ -1,6 +1,7 @@
 var db_helper = require('../dbhelper');
 var queries = require('../sql-queries');
 var json = require('../data/kindergarten-data.json');
+var apiPassword = require('./api_password');
 
 exports.renderRegChildPage = function (req, res) {
     if (req.session.loggedin === true && req.session.username === json.kindergarten.admin.login) {
@@ -124,7 +125,7 @@ exports.registerTeacher = function(request, response) {
 
 
     var sql = queries.insertTeacher;
-    var sql2 = queries.insertTeacher_Group;
+    //var sql2 = queries.insertTeacher_Group;
     var teacherId;
 
     var data = apiPassword.generatePassword(email);
@@ -164,3 +165,47 @@ exports.registerTeacher = function(request, response) {
         });
 };
 
+exports.registerGroup = function(request, response) {
+
+    console.log(request.body);
+
+    var name = request.body.name;
+    var year = request.body.year;
+    var teacher = request.body.teacher;
+
+    var groupId;
+
+    var sql = queries.insertGroup;
+
+
+    db_helper.insertObjectsToDb([sql,name, year, teacher],
+        function (err) {
+            if (!err && request.session.loggedin === true) {
+                //response.redirect('/a/register-teacher');
+                console.log("ADDED TO GROUPS");
+
+                var sqlSelect = queries.selectGroupByHeadTeacher;
+
+                db_helper.getObjectsFromDb([sqlSelect, teacher], function (err, group_info) {
+                    if (!err && request.session.loggedin === true)
+                    {
+                        var groups = group_info.pop();
+
+                        groupId = groups.group_id;
+
+                        var insertSql = "insert into teacher_group values" + "(" + teacher + ","+ groupId + ")" ;
+
+                        db_helper.insertObjectsToDb([insertSql], function (err){
+                            if (!err && request.session.loggedin === true) {
+                                response.redirect('/a/new-group');
+                            }
+                        });
+                    } else {
+                        response.redirect('/a/new-group');
+                    }
+                });
+            }
+        });
+
+
+};
