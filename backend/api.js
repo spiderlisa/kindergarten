@@ -136,6 +136,8 @@ exports.registerParent = function(request, response) {
     var work = request.body.work;
     var discount = request.body.discount;
 
+    if(discount===undefined || discount===null) discount=0;
+    
     var sql = queries.insertParent;
 
     var data = apiPassword.generatePassword(email);
