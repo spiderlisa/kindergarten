@@ -101,6 +101,123 @@ exports.authenticate = function(request, response) {
     }
 };
 
+exports.registerChild = function(request, response) {
+
+
+    console.log(request.body);
+
+    var name = request.body.name;
+    var lastname = request.body.lastname;
+    var secondname = request.body.secondname;
+    var dob = request.body.dob;
+    var parent = request.body.parent;
+    var group = request.body.group;
+    var sql = queries.insertChild;
+
+    db_helper.insertObjectsToDb([sql,lastname, name, secondname, dob,parent,group],
+        function (err) {
+
+            if (!err && request.session.loggedin === true) {
+
+                response.redirect('/a/register-child');
+            }
+        });
+};
+
+exports.registerParent = function(request, response) {
+
+    var last_name = request.body.last_name;
+    var first_name = request.body.first_name;
+    var father_name = request.body.father_name;
+    var email = request.body.email;
+    var phone = request.body.phone;
+    var address = "м. "+ request.body.address_city+ " вул. " + request.body.address_street +
+        " кв. " + request.body.address_flat + "";
+    var work = request.body.work;
+    var discount = request.body.discount;
+
+    var sql = queries.insertParent;
+
+    var data = apiPassword.generatePassword(email);
+    var salt = data.salt;
+    var hash = data.hash;
+
+
+    db_helper.insertObjectsToDb([sql, last_name, first_name, father_name, phone, address, work, email, discount, hash, salt ],
+        function (err) {
+
+            if (!err && request.session.loggedin === true) {
+
+                response.redirect('/a/register-parent');
+            }
+        });
+};
+
+exports.registerTeacher = function(request, response) {
+
+
+    console.log(request.body);
+
+    var last_name = request.body.last_name;
+    var first_name = request.body.first_name;
+    var father_name = request.body.father_name;
+    var email = request.body.email;
+    var phone = request.body.phone;
+    var address = "м. "+ request.body.address_city+ " вул. " + request.body.address_street +
+        " кв. " + request.body.address_flat + "";
+    var groups = request.body.group;
+
+
+    var sql = queries.insertTeacher;
+    var sql2 = queries.insertTeacher_Group;
+    var teacherId;
+
+    var data = apiPassword.generatePassword(email);
+    var salt = data.salt;
+    var hash = data.hash;
+
+
+    db_helper.insertObjectsToDb([sql, last_name, first_name, father_name, phone, address, email, hash, salt],
+        function (err) {
+
+            if (!err && request.session.loggedin === true) {
+                //response.redirect('/a/register-teacher');
+                console.log("ADDED TO TEACHERS");
+
+                var sqlSelect = queries.selectTeacherByEmail;
+
+                response.redirect('/a/register-teacher');
+
+               /* db_helper.getObjectsFromDb([sqlSelect, email],
+                    function (err, parent_info) {
+                        if (!err && request.session.loggedin === true)
+                        {
+                            teacherId = parent_info[0].teacher_id;
+
+                            var i= 0;
+                            while(i < groups.length)
+                            {
+                                db_helper.insertObjectsToDb([sql2, teacherId, groups[i] ],
+                                    function (err) {
+                                        if (!err && request.session.loggedin === true) {
+                                            //response.redirect('/a/register-teacher');
+                                            console.log("ADDED TO TEACHER_GROPS -- "+ i);
+                                        }
+                                        //else response.redirect('/a/register-teacher');
+                                });
+                                i++;
+                            }
+                            //response.redirect('/a/register-teacher');
+                        }
+                        else response.redirect('/a/register-teacher');
+                });*/
+            }
+
+            else response.redirect('/a/register-teacher');
+        });
+
+};
+
 exports.fillParentBills = function (req, res) {
     var sqlG = queries.guardianByEmail;
     var userId = req.params.parentId;
@@ -246,15 +363,19 @@ exports.renderRegChildPage = function (req, res) {
 };
 
 exports.renderRegParentPage = function (req, res) {
-    res.render('adminPage', {
-        pagetitle: "Реєстрація",
-        reg_type: "parent"
-    })
+    if(req.session.loggedin === true && req.session.username === json.kindergarten.admin.login)
+    {
+        res.render('adminPage', {
+            pagetitle: "Реєстрація",
+            reg_type: "parent"
+        })
+    }
+
 };
 
 exports.renderRegTeacherPage = function (req, res) {
     db_helper.getObjectsFromDb([queries.groups], function (err, groups) {
-        if(!err) {
+        if(!err && req.session.loggedin === true && req.session.username === json.kindergarten.admin.login) {
             res.render('adminPage', {
                 pagetitle: "Реєстрація",
                 groups: groups,
