@@ -155,28 +155,33 @@ exports.addNewReview = function (req, res) {
 exports.markPresence = function (req, res) {
     if(req.session.loggedin === true) {
 
-        var userId = req.params.teacherId;
+
+        var backURL=req.header('Referer') || '/';
+
         console.log(req.body);
 
-       /* var child = req.body.child;
-        var textReview = req.body.textReview;
-        var url = "/t/"+userId+"/reviews";
+        var pr = req.body.present;
+         var today = new Date();
+         var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-        var sql = queries.insertReview;
+         var sql = "INSERT INTO PRESENCE VALUES";
 
-        var today = new Date();
-        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        var dateTime = date+' '+time;
+        for(var i=0; i<pr.length; i++)
+        {
+            if(i>0) sql = sql+ ",";
+            sql = sql + "( \'" + date + "\',"+ pr[i] + ")"
+        }
 
-        db_helper.insertObjectsToDb([sql, userId , child,  dateTime   ,textReview],
-            function (err) {
+        console.log(sql);
 
-                if (!err && req.session.loggedin === true) {
+         db_helper.insertObjectsToDb([sql],
+             function (err) {
 
-                    res.redirect(url);
-                }
-            });
-            */
+                 if (!err && req.session.loggedin === true) {
+
+                     res.redirect(backURL);
+                 }
+         });
     }
 };
