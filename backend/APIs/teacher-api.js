@@ -1,6 +1,8 @@
 var db_helper = require('../dbhelper');
 var queries = require('../sql-queries');
 
+
+
 exports.fillTeacherPresence = function (req, res) {
     if(req.session.loggedin === true) {
         var userId = req.params.teacherId;
@@ -167,11 +169,15 @@ exports.markPresence = function (req, res) {
 
          var sql = "INSERT INTO PRESENCE VALUES";
 
-        for(var i=0; i<pr.length; i++)
-        {
-            if(i>0) sql = sql+ ",";
-            sql = sql + "( \'" + date + "\',"+ pr[i] + ")"
+        if(Array.isArray(pr)){
+            for(var i=0; i<pr.length; i++)
+            {
+                if(i>0) sql = sql+ ",";
+                sql = sql + "( \'" + date + "\',"+ pr[i] + ")"
+            }
         }
+         else sql = sql + "( \'" + date + "\',"+ pr + ")"
+
 
         console.log(sql);
 

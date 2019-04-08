@@ -14,7 +14,13 @@
                     <% include templates/register-teacher.ejs %>
             <% } else if (reg_type == "group") { %>
                     <% include templates/register-group.ejs %>
-            <% } %>
+            <% } else if (reg_type == "children") { %>
+                <% include templates/allchildren.ejs %>
+                <% } else if (reg_type == "parents") { %>
+                    <% include templates/allparents.ejs %>
+                <% } else if (reg_type == "teachers") { %>
+                    <% include templates/allteachers.ejs %>
+                <% } %>
         </div>
     </div>
 </div>
