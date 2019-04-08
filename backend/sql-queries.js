@@ -30,6 +30,12 @@ exports.childrenFromAllTeachersGroups = "SELECT child_id, child_first_name, chil
 
 exports.guardians = "SELECT guardian_id, guardian_last_name, guardian_first_name, guardian_father_name, guardian_phone_n, guardian_email, guardian_discount FROM guardian";
 
+exports.allChildrenId = "SELECT child_id FROM child";
+
+exports.guardianDiscountByChildId = "SELECT guardian_discount " +
+    "FROM guardian AS g JOIN child AS c ON g.guardian_id=c.guardian_id " +
+    "WHERE child_id=@childId";
+
 exports.groups = "SELECT group_id, group_name FROM [group]";
 
 exports.teachers = "SELECT teacher_id, teacher_last_name, teacher_first_name, teacher_father_name, teacher_phone_n, teacher_email FROM teacher";
@@ -45,6 +51,12 @@ exports.groupsByTeacherId = "SELECT g.group_id, g.group_name, Count(child_id) AS
         "FROM teacher_group AS tg " +
         "WHERE teacher_id=@teacherId ) " +
     "GROUP BY g.group_id, g.group_name";
+
+exports.bills = "SELECT * FROM bill JOIN child ON bill.child_id=child.child_id";
+
+exports.monthlyPresenceByChildId = "SELECT COUNT(SELECT presence_date " +
+    "FROM presence AS p JOIN child AS c ON p.child_id=c.child_id\n" +
+    "WHERE p.child_id=@childId AND MONTH(p.presence_date)=@currMonth AND YEAR(p.presence_date)=@currYear )";
 
 exports.teacherByEmail = "SELECT teacher_id, teacher_hashpassword, teacher_salt " +
     "FROM teacher " +
@@ -77,6 +89,9 @@ exports.allReviewsForTeacher = "SELECT report_note, report_time, child_last_name
         ") " +
     ") )";
 
+exports.getBillInfo = "SELECT * " +
+    "FROM bill AS b JOIN child AS c ON c.child_id=b.child_id " +
+    "WHERE b.bill_id=@billId";
 
 exports.selectTeacherByEmail = "SELECT teacher_id " +
     "FROM teacher " +

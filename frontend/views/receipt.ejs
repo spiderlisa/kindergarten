@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>KDGT </title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/frontend/views/styles/style.css">
+</head>
+<body>
+<div id="receipt" class="container pr-1 pl-1">
+    <div class="row">
+        <div class="col-6">
+            <div class="h5 text-uppercase font-weight-bold font-italic mb-4 mt-4">
+                рахунок на сплату за харчування дитини в дитячому закладі <%=info.department%> за <%=bill.bill_month%> <%=bill.bill_year%>р.
+            </div>
+            <div class="container pr-0 mr-3">
+                <div class="row border">
+                    <div class="col-5">
+                        <p>ЦБ</p>
+                        <p>Дит. закл</p>
+                        <p>Група</p>
+                        <p>Таб. №</p>
+                    </div>
+                    <div class="col">
+                        <p><%=info.tsb%></p>
+                        <p><%=info.number%></p>
+                        <p><%= bill.group_id %></p>
+                        <p><%= bill.child_id %></p>
+                    </div>
+                </div>
+                <div class="row border">
+                    <div class="col font-weight-bold">
+                        <%= bill.child_last_name %> <%= bill.child_first_name %>
+                    </div>
+                </div>
+                <div class="row border">
+                    <div class="col font-italic">
+                        До сплати <%= bill.bill_sum %>грн.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+        </div>
+        <div class="col mr-2">
+            <div class="h6 text-muted mt-3">P/P <%=info.R%></div>
+            <div class="h6 text-muted">ЄДРПОУ <%=info.EDRPOY%></div>
+            <div class="h6 text-muted">МФО <%=info.mfo%></div>
+            <div class="h6 text-muted"><%=info.bank%></div>
+            <div class="h6 text-muted mb-4"><%=info.department%></div>
+            <div class="h6 text-uppercase font-weight-bold font-italic mb-4 mt-4">
+                повідомлення за <%=bill.bill_month%> <%=bill.bill_year%>р.
+            </div>
+            <div class="container pl-0 pr-0">
+                <div class="row border">
+                    <div class="col-3">
+                        <p>ЦБ</p>
+                        <p>Дит. закл</p>
+                    </div>
+                    <div class="col-3">
+                        <p><%=info.tsb%></p>
+                        <p><%=info.number%></p>
+                    </div>
+                    <div class="col-3">
+                        <p>Група</p>
+                        <p>Таб. №</p>
+                    </div>
+                    <div class="col-3">
+                        <p><%= bill.group_id %></p>
+                        <p><%= bill.child_id %></p>
+                    </div>
+                </div>
+                <div class="row border">
+                    <div class="col font-weight-bold">
+                        <%= bill.child_last_name %> <%= bill.child_first_name %>
+                    </div>
+                </div>
+                <div class="row border border">
+                    <div class="col font-italic">
+                        До сплати <%= bill.bill_sum %>грн.
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col">
+                        ПІБ та підпис особи, яка оплачує цей рахунок
+                    </div>
+                </div>
+                <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
