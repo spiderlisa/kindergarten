@@ -59,6 +59,50 @@ exports.renderNewGroupPage = function (req, res) {
     }
 };
 
+
+
+exports.renderAllChildren = function (req, res) {
+    if (req.session.loggedin === true && req.session.username === json.kindergarten.admin.login) {
+        db_helper.getObjectsFromDb([queries.children], function (err, children) {
+            if (!err) {
+                res.render('adminPage', {
+                    pagetitle: "Усі діти",
+                    children: children,
+                    reg_type: "children"
+                });
+            }
+        });
+    }
+};
+
+exports.renderAllParents = function (req, res) {
+    if (req.session.loggedin === true && req.session.username === json.kindergarten.admin.login) {
+        db_helper.getObjectsFromDb([queries.guardians], function (err, parents) {
+            if (!err) {
+                res.render('adminPage', {
+                    pagetitle: "Усі батьки",
+                    parents: parents,
+                    reg_type: "parents"
+                });
+            }
+        });
+    }
+};
+
+exports.renderAllTeachers = function (req, res) {
+    if (req.session.loggedin === true && req.session.username === json.kindergarten.admin.login) {
+        db_helper.getObjectsFromDb([queries.teachers], function (err, teachers) {
+            if (!err) {
+                res.render('adminPage', {
+                    pagetitle: "Усі вихователі",
+                    teachers: teachers,
+                    reg_type: "teachers"
+                });
+            }
+        });
+    }
+};
+
 exports.renderBillsPage = function(req, res) {
     if (req.session.loggedin === true && req.session.username === json.kindergarten.admin.login) {
         db_helper.getObjectsFromDb([queries.bills], function (err, bills) {
@@ -68,11 +112,97 @@ exports.renderBillsPage = function(req, res) {
                     bills: bills,
                     reg_type: "bills",
                     type: "admin"
+
                 });
             }
         });
     }
 };
+
+
+
+exports.deleteChildren = function(request, response) {
+
+    var children = request.body.children;
+
+    var sql = "DELETE FROM CHILD WHERE ";
+
+
+    if(Array.isArray(children)){
+        for(var i=0; i<children.length; i++)
+        {
+            if(i>0) sql = sql + " OR ";
+            sql = sql + "child_id="+ children[i];
+        }
+    }
+    else sql = sql + "child_id="+ children;
+
+
+
+    db_helper.insertObjectsToDb([sql],
+        function (err) {
+
+            if (!err && request.session.loggedin === true) {
+
+                response.redirect('/a/delete-child');
+            }
+        });
+};
+
+exports.deleteParents = function(request, response) {
+
+    var parents = request.body.parents;
+
+    var sql = "DELETE FROM GUARDIAN WHERE ";
+
+    if(Array.isArray(parents)){
+        for(var i=0; i<parents.length; i++)
+        {
+            if(i>0) sql = sql + " OR ";
+            sql = sql + "guardian_id="+ parents[i];
+        }
+    }
+    else sql = sql + "guardian_id="+ parents;
+
+
+    db_helper.insertObjectsToDb([sql],
+        function (err) {
+
+            if (!err && request.session.loggedin === true) {
+
+                response.redirect('/a/delete-parent');
+            }
+        });
+};
+
+exports.deleteTeachers = function(request, response) {
+
+    var teachers = request.body.teachers;
+
+    var sql = "DELETE FROM TEACHER WHERE ";
+
+
+    if(Array.isArray(teachers)){
+        for(var i=0; i<teachers.length; i++)
+        {
+            if(i>0) sql = sql + " OR ";
+            sql = sql + "teacher_id="+ teachers[i];
+        }
+    }
+    else sql = sql + "teacher_id="+ teachers;
+    
+
+    db_helper.insertObjectsToDb([sql],
+        function (err) {
+
+            if (!err && request.session.loggedin === true) {
+
+                response.redirect('/a/delete-teacher');
+            }
+        });
+};
+
+
 
 exports.registerChild = function(request, response) {
     //console.log(request.body);

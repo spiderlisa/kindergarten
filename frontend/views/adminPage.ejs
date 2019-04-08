@@ -14,7 +14,14 @@
                     <% include templates/register-teacher.ejs %>
             <% } else if (reg_type == "group") { %>
                     <% include templates/register-group.ejs %>
-            <% } else if (reg_type == "bills") { %>
+
+            <% } else if (reg_type == "children") { %>
+                <% include templates/allchildren.ejs %>
+                <% } else if (reg_type == "parents") { %>
+                    <% include templates/allparents.ejs %>
+                <% } else if (reg_type == "teachers") { %>
+                    <% include templates/allteachers.ejs %>
+               <% } else if (reg_type == "bills") { %>
                     <div class="h3 mb-4 page-title">Рахунки</div>
                     <div class="mb-3">
                         <form action="generateBills" method="POST">
@@ -31,6 +38,7 @@
                         <% }); }%>
                     </div>
             <% } %>
+
         </div>
     </div>
 </div>

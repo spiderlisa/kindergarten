@@ -14,11 +14,11 @@ exports.childById = "SELECT * " +
                     "FROM child " +
                     "WHERE child_id=@userId";
 
-exports.childrenFromMainTeacherGroup = "SELECT child_first_name, child_last_name " +
+exports.childrenFromMainTeacherGroup = "SELECT child_id, child_first_name, child_last_name " +
                             "FROM child " +
                             "WHERE group_id IN (SELECT group_id FROM [group] WHERE teacher_head_id=@teacherId )";
 
-exports.childrenFromAllTeachersGroups = "SELECT child_first_name, child_last_name " +
+exports.childrenFromAllTeachersGroups = "SELECT child_id, child_first_name, child_last_name " +
     "FROM child AS c " +
     "WHERE c.group_id IN ( " +
     "SELECT g.group_id " +
@@ -28,7 +28,7 @@ exports.childrenFromAllTeachersGroups = "SELECT child_first_name, child_last_nam
     "FROM teacher_group AS tg " +
     "WHERE tg.teacher_id=@teacherId ) )";
 
-exports.guardians = "SELECT guardian_id, guardian_last_name, guardian_first_name FROM guardian";
+exports.guardians = "SELECT guardian_id, guardian_last_name, guardian_first_name, guardian_father_name, guardian_phone_n, guardian_email, guardian_discount FROM guardian";
 
 exports.allChildrenId = "SELECT child_id FROM child";
 
@@ -38,7 +38,9 @@ exports.guardianDiscountByChildId = "SELECT guardian_discount " +
 
 exports.groups = "SELECT group_id, group_name FROM [group]";
 
-exports.teachers = "SELECT teacher_id, teacher_last_name, teacher_first_name FROM teacher";
+exports.teachers = "SELECT teacher_id, teacher_last_name, teacher_first_name, teacher_father_name, teacher_phone_n, teacher_email FROM teacher";
+
+exports.children = "SELECT child_id, child_last_name, child_first_name, child_father_name, child_dob, child_age FROM child";
 
 exports.mainGroupByTeacherId = "SELECT * FROM [group] WHERE teacher_head_id=@teacherId";
 
@@ -124,3 +126,8 @@ exports.insertTeacher_Group = "INSERT INTO TEACHER_GROUP ( teacher_id,group_id) 
 
 exports.insertGroup = "INSERT INTO [GROUP] (group_name, group_year, teacher_head_id) " +
     "VALUES ( @group_name , @group_year , @teacher_head_id );";
+
+
+exports.insertReview = "INSERT INTO REPORT VALUES ( @teacher_id  ,  @child_id  ,  @report_time ,  @report_note   );";
+
+//'2019-01-14 17:42:10'
