@@ -87,6 +87,9 @@ exports.allReviewsForTeacher = "SELECT report_note, report_time, child_last_name
         ") " +
     ") )";
 
+exports.getBillInfo = "SELECT * " +
+    "FROM bill AS b JOIN child AS c ON c.child_id=b.child_id " +
+    "WHERE b.bill_id=@billId";
 
 exports.selectTeacherByEmail = "SELECT teacher_id " +
     "FROM teacher " +

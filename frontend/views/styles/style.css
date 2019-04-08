@@ -114,6 +114,11 @@ a {
     font-weight: bold;
 }
 
+#receipt {
+    height: 500px;
+    width: 1000px;
+}
+
 .form-signin {
     width: 100%;
     max-width: 330px;

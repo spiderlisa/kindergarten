@@ -17,25 +17,6 @@
             <% } else if (reg_type == "bills") { %>
                     <div class="h3 mb-4 page-title">Рахунки</div>
                     <div class="mb-3">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-light dropdown-toggle"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Сортування
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Нові спочатку</a>
-                                <a class="dropdown-item" href="#">Несплачені спочатку</a>
-                                <a class="dropdown-item" href="#">A-Я</a>
-                            </div>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-light dropdown-toggle"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Фільтри
-                            </button>
-                        </div>
-                    </div>
-                    <div class="mb-3">
                         <form action="generateBills" method="POST">
                             <button type="submit" class="btn btn-primary">
                                 Згенерувати рахунки
