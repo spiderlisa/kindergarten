@@ -8,7 +8,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form>
+            <form action="addReview" method="POST">
                 <div class="modal-body">
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
@@ -16,18 +16,18 @@
                                 <img src="https://img.icons8.com/ios/50/000000/babys-room.png" width="15" height="15">
                             </label>
                         </div>
-                        <select class="form-control" id="childrenList">
+                        <select name="child" class="form-control" id="childrenList">
                             <% children.forEach(function (child) { %>
-                                <option><%= child.name %></option>
+                                <option value="<%= child.child_id %>" ><%= child.child_first_name %> <%= child.child_last_name %></option>
                             <% }); %>
                         </select>
                     </div>
                     <div class="form-group mb-0">
-                        <textarea id="review-text" class="form-control" rows="4" placeholder="Текст відгуку"></textarea>
+                        <textarea name="textReview" id="review-text" class="form-control" rows="4" placeholder="Текст відгуку"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Зберегти</button>
+                    <button type="submit" class="btn btn-primary">Зберегти</button>
                 </div>
             </form>
         </div>

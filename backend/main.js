@@ -1,6 +1,6 @@
 var express = require('express');
 
-var api = require('./api');
+var auth_api = require('./APIs/auth-api');
 var session = require('express-session');
 
 var path = require('path');
@@ -14,8 +14,8 @@ function configureEndpoints(app) {
     const teacher_routes = require('./routes/teacher-routes');
     const admin_routes = require('./routes/admin-routes');
 
-    app.post('/auth', api.authenticate);
-    app.get('/logout', api.logout);
+    app.post('/auth', auth_api.authenticate);
+    app.get('/logout', auth_api.logout);
 
     app.use('/', routes);
     app.use('/p', parent_routes);

@@ -1,22 +1,28 @@
 <div class="card mb-2">
     <div class="card-body">
             <div class="mb-2">
-                <span class="h5 card-title"><%= info.child_name %>, <%= info.period %></span>
+                <span class="h5 card-title"><%= bill.child_first_name.trim()%> <%= bill.child_last_name.trim()%>, <%= bill.bill_month %> <%= bill.bill_year %></span>
 
                 <% if (type == "parent") { %>
-                    <button class="btn btn-primary float-right" >
+                <form action="/p/receipt/<%= bill.bill_id %>" method="GET">
+                    <button class="btn btn-primary float-right print-receipt-btn" type="submit">
                         <img src="/frontend/views/assets/icons8-print-30.png" width="15" height="15">
                     </button>
+                </form>
                 <% } else if (type == "admin") { %>
-                    <button class="btn btn-primary float-right">
+                    <button class="btn btn-primary float-right mark-receipt-btn">
                         <img src="/frontend/views/assets/icons8-facebook-like-filled-50.png" width="15" height="15">
                     </button>
                 <% } %>
             </div>
-            <h6 class="card-subtitle text-muted mb-2"><%= info.sum%> грн</h6>
+            <h6 class="card-subtitle text-muted mb-2"><%= bill.bill_sum%> грн</h6>
             <div class="card-text">
-                <div>Статус: <%= info.status %></div>
-                <div>Дата кінця терміну сплати: <%= info.end_date %></div>
+                <% if (bill.bill_paid) { %>
+                       <div>Статус: сплачено</div>
+                <% } else { %>
+                        <div>Статус: не сплачено</div>
+                <% } %>
+                <div>Дата кінця терміну сплати: <%= bill.bill_deadline %></div>
             </div>
     </div>
 </div>

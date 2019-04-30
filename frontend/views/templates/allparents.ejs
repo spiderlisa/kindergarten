@@ -1,0 +1,28 @@
+<form action="deleteParents" method="POST">
+    <div class="card mb-2">
+
+        <h1 class="card-header">
+            <span class="h5 mt-1 font-weight-normal float-left">Усі опікуни</span>
+
+            <button type="button" class="btn btn-sm btn-light float-right"
+                    data-toggle="modal" data-target="#exampleModal"
+                    data-email="All" data-name="all-users" id="choose-all-btn">
+                Вибрати усіх
+            </button>
+
+        </h1>
+        <ul class="list-group list-group-flush" id="group-list">
+            <% if (parents.length==0) { %>
+                <li class="list-group-item">Немає жодного опікуна</li>
+            <% } else { Array.from(parents).forEach(function (parent) { %>
+                <li class="list-group-item">
+                    <a> <%= parent.guardian_first_name %> <%= parent.guardian_last_name %><%= parent.guardian_father_name %> <%= parent.guardian_phone_n %> <%= parent.guardian_email %>%</a>
+
+                    <input value = "<%= parent.guardian_id %>" type="checkbox" class="right-side" name="parents">
+
+                </li>
+            <% }) } %>
+        </ul>
+        <button type="submit" class="btn btn-primary" id="presence-submit-btn"> Видалити </button>
+    </div>
+</form>

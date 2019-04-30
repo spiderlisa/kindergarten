@@ -1,0 +1,26 @@
+<form action="deleteTeachers" method="POST">
+    <div class="card mb-2">
+
+        <h1 class="card-header">
+            <span class="h5 mt-1 font-weight-normal float-left">Усі вихователі</span>
+
+            <button type="button" class="btn btn-sm btn-light float-right"
+                    data-toggle="modal" data-target="#exampleModal"
+                    data-email="All" data-name="all-users" id="choose-all-btn">
+                Вибрати усіх
+            </button>
+
+        </h1>
+        <ul class="list-group list-group-flush" id="group-list">
+            <% if (teachers.length==0) { %>
+                <li class="list-group-item">Немає жодного вихователя</li>
+            <% } else { Array.from(teachers).forEach(function (teacher) { %>
+                <li class="list-group-item">
+                    <a> <%= teacher.teacher_first_name %> <%= teacher.teacher_last_name %><%= teacher.teacher_father_name %> <%= teacher.teacher_phone_n %> <%= teacher.teacher_email %></a>
+                    <input value = "<%= teacher.teacher_id %>" type="checkbox" class="right-side" name="teachers">
+                </li>
+            <% }) } %>
+        </ul>
+        <button type="submit" class="btn btn-primary" id="presence-submit-btn"> Видалити </button>
+    </div>
+</form>

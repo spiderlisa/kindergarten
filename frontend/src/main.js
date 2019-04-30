@@ -1,6 +1,4 @@
 $(function() {
-
-
     $("#choose-all-btn").click(function () {
         var inputs = $('input[name=present]');
         if (!(inputs.prop('checked')))

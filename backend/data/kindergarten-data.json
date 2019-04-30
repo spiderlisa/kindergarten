@@ -1,7 +1,6 @@
 {
   "kindergarten": {
     "name": "Первоцвіт",
-    "number": "61",
     "address": {
       "city": "Київ",
       "street": "Володимирська",
@@ -13,6 +12,23 @@
     "admin": {
       "login": "pervotsvit_ua@gmail.com",
       "password": "1"
+    },
+    "email": {
+      "user": "manzhurik@gmail.com",
+      "pass": "28kissme"
+    },
+    "pricelist": {
+      "monthly": "1000",
+      "daily_food": "40"
+    },
+    "billing_details": {
+      "R": "31557256177927",
+      "EDRPOY": "37393777",
+      "department": "УО Оболонської РДА",
+      "MFO": "820019",
+      "bank": "Банк УК м. Києва",
+      "number": "61",
+      "tsb": "8"
     }
   }
 }

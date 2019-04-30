@@ -11,10 +11,16 @@
 <form action="auth" method="POST" class="form-signin">
     <img class="mb-4 logo-small" src="/frontend/views/assets/logo.png" alt="KDGT Logo">
     <h1 class="h3 mb-4 font-weight-normal">Будь ласка, авторизуйтеся</h1>
-    
-    <input id="inputEmail" name="email" type="email" class="form-control" placeholder="Email"
-           required>
-    <input id="inputPassword" name="password" type="password" class="form-control mb-4" placeholder="Пароль" required>
+
+    <% if (feedback) { %>
+        <input id="inputEmail" name="email" type="email" class="form-control" placeholder="Email"
+           <%= feedback.email_validity %> required>
+        <input id="inputPassword" name="password" type="password" class="form-control mb-4" placeholder="Пароль"
+           <%= feedback.pass_validity %> required>
+    <% } else { %>
+        <input id="inputEmail" name="email" type="email" class="form-control" placeholder="Email" required>
+        <input id="inputPassword" name="password" type="password" class="form-control mb-4" placeholder="Пароль" required>
+    <% } %>
 
     <button type="submit" class="btn btn-lg btn-primary btn-block">Авторизуватися</button>
     <p class="mt-5 mb-3 text-muted">© 2019</p>

@@ -7,12 +7,38 @@
         </div>
         <div class="col">
             <% if (reg_type == "child") { %>
-                <% include templates/register-child.ejs %>
+                    <% include templates/register-child.ejs %>
             <% } else if (reg_type == "parent") { %>
-                <% include templates/register-parent.ejs %>
+                    <% include templates/register-parent.ejs %>
             <% } else if (reg_type == "teacher") { %>
-                <% include templates/register-teacher.ejs %>
+                    <% include templates/register-teacher.ejs %>
+            <% } else if (reg_type == "group") { %>
+                    <% include templates/register-group.ejs %>
+
+            <% } else if (reg_type == "children") { %>
+                <% include templates/allchildren.ejs %>
+                <% } else if (reg_type == "parents") { %>
+                    <% include templates/allparents.ejs %>
+                <% } else if (reg_type == "teachers") { %>
+                    <% include templates/allteachers.ejs %>
+               <% } else if (reg_type == "bills") { %>
+                    <div class="h3 mb-4 page-title">Рахунки</div>
+                    <div class="mb-3">
+                        <form action="generateBills" method="POST">
+                            <button type="submit" class="btn btn-primary">
+                                Згенерувати рахунки
+                            </button>
+                        </form>
+                    </div>
+                    <div id="all-bills">
+                        <% if (bills.length == 0) { %>
+                            <div class="h5"> Немає жодного рахунку. </div>
+                        <% } else { bills.forEach( function (bill) { %>
+                            <% include templates/bill.ejs %>
+                        <% }); }%>
+                    </div>
             <% } %>
+
         </div>
     </div>
 </div>
